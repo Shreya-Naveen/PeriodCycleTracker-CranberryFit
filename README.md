@@ -153,6 +153,7 @@ Users can input and track the following:
 ![Home Page](images/homepage.PNG)
 
 **History Page**
+
 ![History Page](images/historypage.PNG)
 
 **Information Page**
