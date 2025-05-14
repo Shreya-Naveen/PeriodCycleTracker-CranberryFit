@@ -137,6 +137,15 @@ Users can input and track the following:
 
 ---
 
+---
+
+## Screenshot images of website
+
+![Login Page](images/loginpage.PNG)
+
+
+---
+
 ## ⚙️ Getting Started
 
 1. **Clone the repository**  
