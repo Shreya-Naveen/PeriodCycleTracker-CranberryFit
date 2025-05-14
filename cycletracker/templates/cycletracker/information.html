@@ -1,0 +1,571 @@
+{% extends 'cycletracker/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    {% if current_phase %}
+    <!-- Current Phase Card -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Your Current Cycle Phase</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-primary">{{ current_phase }} Phase</h5>
+                    <p class="text-muted">Day {{ days_in_cycle }} of your cycle</p>
+                    <p>{{ phase_info.description }}</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Recommendations for This Phase</h5>
+                    <ul class="list-group">
+                        {% for suggestion in phase_info.suggestions %}
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            {{ suggestion }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+            <!-- Understanding Your Cycle -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Understanding Your Menstrual Cycle</h4>
+                </div>
+                <div class="card-body">
+                    <h5>What is a Menstrual Cycle?</h5>
+                    <p>The menstrual cycle is a natural process that occurs in women's bodies, typically lasting between 21-35 days. It's controlled by hormones and prepares your body for potential pregnancy each month.</p>
+                    
+                    <h5>Phases of the Menstrual Cycle</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6>Menstrual Phase (Days 1-5)</h6>
+                                    <p>Your period begins. The uterus sheds its lining, and you may experience:</p>
+                                    <ul>
+                                        <li>Menstrual bleeding</li>
+                                        <li>Cramps</li>
+                                        <li>Fatigue</li>
+                                        <li>Mood changes</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6>Follicular Phase (Days 1-13)</h6>
+                                    <p>Your body prepares for ovulation:</p>
+                                    <ul>
+                                        <li>Estrogen levels rise</li>
+                                        <li>Uterine lining thickens</li>
+                                        <li>Energy levels increase</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6>Ovulation (Day 14)</h6>
+                                    <p>An egg is released from the ovary:</p>
+                                    <ul>
+                                        <li>Peak fertility</li>
+                                        <li>Possible ovulation pain</li>
+                                        <li>Changes in cervical mucus</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6>Luteal Phase (Days 15-28)</h6>
+                                    <p>After ovulation:</p>
+                                    <ul>
+                                        <li>Progesterone levels rise</li>
+                                        <li>Possible PMS symptoms</li>
+                                        <li>Body temperature changes</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise and Your Cycle -->
+            <div class="card mb-4">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">Exercise and Your Cycle</h4>
+                </div>
+                <div class="card-body">
+                    <h5>How Your Cycle Affects Exercise</h5>
+                    <p>Your menstrual cycle can impact your exercise performance and recovery. Here's how to optimize your workouts:</p>
+                    
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Phase</th>
+                                    <th>Exercise Recommendations</th>
+                                    <th>Performance Level</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Menstrual</td>
+                                    <td>Light exercise, yoga, walking</td>
+                                    <td>Lower intensity</td>
+                                </tr>
+                                <tr>
+                                    <td>Follicular</td>
+                                    <td>Strength training, HIIT</td>
+                                    <td>Peak performance</td>
+                                </tr>
+                                <tr>
+                                    <td>Ovulation</td>
+                                    <td>Moderate intensity</td>
+                                    <td>Good performance</td>
+                                </tr>
+                                <tr>
+                                    <td>Luteal</td>
+                                    <td>Endurance, flexibility</td>
+                                    <td>Variable</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Common Symptoms -->
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">Common Symptoms and Management</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Physical Symptoms</h5>
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Cramps
+                                    <span class="badge bg-primary rounded-pill">Common</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Bloating
+                                    <span class="badge bg-primary rounded-pill">Common</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Breast Tenderness
+                                    <span class="badge bg-primary rounded-pill">Common</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Headaches
+                                    <span class="badge bg-primary rounded-pill">Common</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Emotional Symptoms</h5>
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Mood Swings
+                                    <span class="badge bg-primary rounded-pill">Common</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Fatigue
+                                    <span class="badge bg-primary rounded-pill">Common</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Anxiety
+                                    <span class="badge bg-primary rounded-pill">Common</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Irritability
+                                    <span class="badge bg-primary rounded-pill">Common</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Quick Tips -->
+            <div class="card mb-4">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">Quick Tips</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i>
+                            Stay hydrated throughout your cycle
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i>
+                            Get adequate sleep (7-9 hours)
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i>
+                            Maintain a balanced diet
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i>
+                            Exercise regularly
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i>
+                            Track your symptoms
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- When to See a Doctor -->
+            <div class="card mb-4">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">When to See a Doctor</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="fas fa-exclamation-circle text-danger"></i>
+                            Severe pain that interferes with daily activities
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-exclamation-circle text-danger"></i>
+                            Irregular periods
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-exclamation-circle text-danger"></i>
+                            Heavy bleeding
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-exclamation-circle text-danger"></i>
+                            Periods lasting longer than 7 days
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-exclamation-circle text-danger"></i>
+                            Sudden changes in your cycle
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Resources -->
+            <div class="card mb-4">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0">Helpful Resources</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="https://www.acog.org/womens-health" class="list-group-item list-group-item-action" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            American College of Obstetricians and Gynecologists
+                        </a>
+                        <a href="https://www.womenshealth.gov/menstrual-cycle" class="list-group-item list-group-item-action" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            Office on Women's Health
+                        </a>
+                        <a href="https://www.mayoclinic.org/healthy-lifestyle/womens-health" class="list-group-item list-group-item-action" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            Mayo Clinic Women's Health
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Common Medical Conditions -->
+            <div class="card mb-4">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">Common Medical Conditions</h4>
+                </div>
+                <div class="card-body">
+                    <div class="accordion" id="conditionsAccordion">
+                        <!-- PCOS -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="pcosHeader">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#pcosCollapse">
+                                    <i class="fas fa-venus me-2"></i>Polycystic Ovary Syndrome (PCOS)
+                                </button>
+                            </h2>
+                            <div id="pcosCollapse" class="accordion-collapse collapse show" data-bs-parent="#conditionsAccordion">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5>About PCOS</h5>
+                                            <p>PCOS is a hormonal disorder common among women of reproductive age. It affects the ovaries and can lead to various symptoms and health issues.</p>
+                                            
+                                            <h5>Common Symptoms</h5>
+                                            <div class="symptom-checker">
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="pcos1">
+                                                    <label class="form-check-label" for="pcos1">
+                                                        Irregular periods
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="pcos2">
+                                                    <label class="form-check-label" for="pcos2">
+                                                        Excess hair growth
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="pcos3">
+                                                    <label class="form-check-label" for="pcos3">
+                                                        Acne
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="pcos4">
+                                                    <label class="form-check-label" for="pcos4">
+                                                        Weight gain
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="pcos5">
+                                                    <label class="form-check-label" for="pcos5">
+                                                        Difficulty getting pregnant
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5>Management Tips</h5>
+                                            <ul class="list-group">
+                                                <li class="list-group-item">
+                                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                                    Maintain a healthy weight
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                                    Regular exercise
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                                    Balanced diet
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                                    Regular medical check-ups
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Endometriosis -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="endoHeader">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#endoCollapse">
+                                    <i class="fas fa-venus me-2"></i>Endometriosis
+                                </button>
+                            </h2>
+                            <div id="endoCollapse" class="accordion-collapse collapse" data-bs-parent="#conditionsAccordion">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5>About Endometriosis</h5>
+                                            <p>Endometriosis occurs when tissue similar to the lining of the uterus grows outside the uterus, causing pain and other symptoms.</p>
+                                            
+                                            <h5>Common Symptoms</h5>
+                                            <div class="symptom-checker">
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="endo1">
+                                                    <label class="form-check-label" for="endo1">
+                                                        Severe menstrual cramps
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="endo2">
+                                                    <label class="form-check-label" for="endo2">
+                                                        Chronic pelvic pain
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="endo3">
+                                                    <label class="form-check-label" for="endo3">
+                                                        Pain during intercourse
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="endo4">
+                                                    <label class="form-check-label" for="endo4">
+                                                        Heavy periods
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="endo5">
+                                                    <label class="form-check-label" for="endo5">
+                                                        Infertility
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5>Management Tips</h5>
+                                            <ul class="list-group">
+                                                <li class="list-group-item">
+                                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                                    Pain management techniques
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                                    Hormonal therapy
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                                    Regular exercise
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                                    Stress management
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fibroids -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="fibroidsHeader">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fibroidsCollapse">
+                                    <i class="fas fa-venus me-2"></i>Uterine Fibroids
+                                </button>
+                            </h2>
+                            <div id="fibroidsCollapse" class="accordion-collapse collapse" data-bs-parent="#conditionsAccordion">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5>About Fibroids</h5>
+                                            <p>Fibroids are non-cancerous growths in the uterus that can cause various symptoms and complications.</p>
+                                            
+                                            <h5>Common Symptoms</h5>
+                                            <div class="symptom-checker">
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="fib1">
+                                                    <label class="form-check-label" for="fib1">
+                                                        Heavy menstrual bleeding
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="fib2">
+                                                    <label class="form-check-label" for="fib2">
+                                                        Prolonged periods
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="fib3">
+                                                    <label class="form-check-label" for="fib3">
+                                                        Pelvic pressure
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="fib4">
+                                                    <label class="form-check-label" for="fib4">
+                                                        Frequent urination
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="fib5">
+                                                    <label class="form-check-label" for="fib5">
+                                                        Backache or leg pains
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5>Management Tips</h5>
+                                            <ul class="list-group">
+                                                <li class="list-group-item">
+                                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                                    Regular monitoring
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                                    Medication management
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                                    Lifestyle modifications
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                                    Surgical options if needed
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info mt-4">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Important:</strong> This symptom checker is for informational purposes only. If you experience any of these symptoms, please consult with a healthcare provider for proper diagnosis and treatment.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .accordion-button:not(.collapsed) {
+        background-color: #fff5f5;
+        color: #ff6b95;
+    }
+    
+    .accordion-button:focus {
+        box-shadow: 0 0 0 0.2rem rgba(255, 107, 149, 0.25);
+    }
+    
+    .symptom-checker {
+        background-color: #fff5f5;
+        padding: 15px;
+        border-radius: 10px;
+    }
+    
+    .form-check-input:checked {
+        background-color: #ff6b95;
+        border-color: #ff6b95;
+    }
+    
+    .list-group-item {
+        border-color: #ffd6e0;
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add event listeners to checkboxes
+    const checkboxes = document.querySelectorAll('.form-check-input');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            // You can add additional functionality here
+            // For example, counting checked symptoms or showing recommendations
+        });
+    });
+});
+</script>
+
+{% endblock %} 

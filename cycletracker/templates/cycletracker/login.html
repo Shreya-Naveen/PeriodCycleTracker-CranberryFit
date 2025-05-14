@@ -1,0 +1,149 @@
+{% extends 'cycletracker/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-body text-center p-5">
+                    <!-- Logo -->
+                    <div class="mb-4">
+                        <div class="logo-container">
+                            <div class="logo-wrapper">
+                                <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Calendar Base -->
+                                    <rect x="40" y="40" width="120" height="120" rx="10" fill="#fff5f5" stroke="#ff6b95" stroke-width="4"/>
+                                    <!-- Calendar Header -->
+                                    <rect x="40" y="40" width="120" height="30" rx="10" fill="#ff6b95"/>
+                                    <!-- Calendar Lines -->
+                                    <line x1="40" y1="70" x2="160" y2="70" stroke="#ff6b95" stroke-width="2"/>
+                                    <line x1="80" y1="40" x2="80" y2="160" stroke="#ff6b95" stroke-width="2"/>
+                                    <line x1="120" y1="40" x2="120" y2="160" stroke="#ff6b95" stroke-width="2"/>
+                                    <!-- Heart Symbol -->
+                                    <path d="M100 120 C100 120, 85 100, 70 100 C55 100, 55 120, 70 120 C85 120, 100 140, 100 140 C100 140, 115 120, 130 120 C145 120, 145 100, 130 100 C115 100, 100 120, 100 120" 
+                                          fill="#ff6b95"/>
+                                </svg>
+                            </div>
+                            <h2 class="text-primary mt-3">CranberryFit</h2>
+                            <p class="text-muted">Track Your Cycle, Optimize Your Fitness</p>
+                        </div>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form method="post" class="text-start">
+                        {% csrf_token %}
+                        {% if form.errors %}
+                            <div class="alert alert-danger">
+                                Please correct the errors below.
+                            </div>
+                        {% endif %}
+                        
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label">Username</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <input type="text" name="username" id="id_username" class="form-control" required>
+                            </div>
+                            {% if form.username.errors %}
+                                <div class="text-danger">{{ form.username.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="id_password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" name="password" id="id_password" class="form-control" required>
+                            </div>
+                            {% if form.password.errors %}
+                                <div class="text-danger">{{ form.password.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-sign-in-alt me-2"></i>Login
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="mt-4 text-center">
+                        <p class="mb-0">Don't have an account? <a href="{% url 'register' %}" class="text-primary">Register here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .logo-container {
+        padding: 20px;
+        border-radius: 15px;
+        background: linear-gradient(145deg, #fff5f5, #ffe6e6);
+        margin-bottom: 30px;
+    }
+    
+    .logo-wrapper {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+    }
+    
+    .logo-svg {
+        width: 100%;
+        height: 100%;
+        filter: drop-shadow(0 4px 6px rgba(255, 107, 149, 0.2));
+    }
+    
+    .logo-container h2 {
+        color: #ff6b95;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    
+    .card {
+        border: none;
+        border-radius: 15px;
+    }
+    
+    .input-group-text {
+        background-color: #fff5f5;
+        border: 1px solid #ffd6e0;
+        color: #ff6b95;
+    }
+    
+    .form-control {
+        border: 1px solid #ffd6e0;
+    }
+    
+    .form-control:focus {
+        border-color: #ff6b95;
+        box-shadow: 0 0 0 0.2rem rgba(255, 107, 149, 0.25);
+    }
+    
+    .btn-primary {
+        background-color: #ff6b95;
+        border-color: #ff6b95;
+        padding: 12px;
+    }
+    
+    .btn-primary:hover {
+        background-color: #ff4d7d;
+        border-color: #ff4d7d;
+    }
+    
+    .text-primary {
+        color: #ff6b95 !important;
+    }
+    
+    a.text-primary:hover {
+        color: #ff4d7d !important;
+    }
+</style>
+{% endblock %} 

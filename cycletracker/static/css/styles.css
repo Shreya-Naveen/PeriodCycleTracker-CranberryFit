@@ -1,0 +1,76 @@
+/* General Reset */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #fff0f6; /* Light pink background */
+    color: #333;
+}
+
+/* Page Wrapper */
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #ffe6f0; /* Lighter pink for card */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+h1, h2, h3 {
+    text-align: center;
+    color: #d63384; /* A darker pink shade for headings */
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+form label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #8a145d; /* Slightly darker pink for labels */
+}
+
+form input, form select, form button {
+    padding: 10px;
+    border: 1px solid #d63384;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+form input:hover, form select:hover {
+    background-color: #ffe6f0;
+}
+
+form button {
+    background-color: #d63384;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+form button:hover {
+    background-color: #a82465; /* Darker pink for hover */
+}
+
+/* Success Message */
+h3 {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #6a1b4d; /* Elegant dark pink */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+}

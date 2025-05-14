@@ -1,0 +1,127 @@
+{% extends 'cycletracker/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Your History</h2>
+    
+    <!-- Performance Chart -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4>Training Performance</h4>
+        </div>
+        <div class="card-body">
+            <canvas id="performanceChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Raw Data Tables -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Menstrual Tracking</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Cycle Length</th>
+                                    <th>Last Period</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for entry in menstrual_entries %}
+                                <tr>
+                                    <td>{{ entry.submission_date|date:"M d, Y" }}</td>
+                                    <td>{{ entry.cycle_length }} days</td>
+                                    <td>{{ entry.last_period_start|date:"M d, Y" }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Symptom Tracking</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Cramps</th>
+                                    <th>Mood</th>
+                                    <th>Performance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for entry in symptom_entries %}
+                                <tr>
+                                    <td>{{ entry.tracking_date|date:"M d, Y" }}</td>
+                                    <td>{{ entry.cramps }}</td>
+                                    <td>{{ entry.mood }}</td>
+                                    <td>{{ entry.performance_rating }}/10</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Prepare data for performance chart
+    const symptomData = {
+        dates: [{% for entry in symptom_entries %}'{{ entry.tracking_date|date:"M d" }}',{% endfor %}],
+        performance: [{% for entry in symptom_entries %}{{ entry.performance_rating|default:"null" }},{% endfor %}]
+    };
+
+    // Performance Chart
+    new Chart(document.getElementById('performanceChart'), {
+        type: 'line',
+        data: {
+            labels: symptomData.dates,
+            datasets: [{
+                label: 'Performance Rating',
+                data: symptomData.performance,
+                borderColor: 'rgb(153, 102, 255)',
+                tension: 0.1,
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 10,
+                    title: {
+                        display: true,
+                        text: 'Rating (1-10)'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Your Training Performance Over Time'
+                }
+            }
+        }
+    });
+</script>
+{% endblock %} 
