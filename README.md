@@ -140,10 +140,24 @@ Users can input and track the following:
 ---
 
 ## Screenshot images of website
--**Login Page**
+**Login Page**
+
 ![Login Page](images/loginpage.PNG)
--**Registration Page**
+
+**Registration Page**
+
 ![Registration Page](images/registrationpage.PNG)
+
+**Home Page**
+
+![Home Page](images/homepage.PNG)
+
+**History Page**
+![History Page](images/historypage.PNG)
+
+**Information Page**
+
+![Information Page](images/informationpage.PNG)
 ---
 
 ## ⚙️ Getting Started
