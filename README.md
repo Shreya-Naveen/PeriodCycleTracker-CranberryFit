@@ -106,7 +106,7 @@ Users can input and track the following:
 - **Cycle Length**: Number of days in the user's menstrual cycle.
 - **Last Period Start Date**: Used to calculate the current phase of the cycle.
 - **Symptoms**: Track common symptoms such as cramps, mood swings, and fatigue.
-- 
+  
 ✨ The form dynamically updates with **personalized insights** based on user input.
 
 ---
